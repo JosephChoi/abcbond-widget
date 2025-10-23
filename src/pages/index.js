@@ -13,20 +13,19 @@ export class IndexPage {
 
   async loadInvestments() {
     try {
-      // API에서 사용자의 투자 내역 가져오기
-      // 응답: [{ id, investment_id, invested_amount, invested_date, status, name, location, expected_return }]
+      // API에서 내 투자 내역 가져오기
       const myInvestments = await getMyInvestments();
       
-      // API 응답을 화면에 표시할 형식으로 변환
-      this.investments = myInvestments.map(item => ({
-        id: item.investment_id,           // 투자 상품 ID
-        name: item.name,                   // 아파트 이름
-        location: item.location,           // 위치
-        investedAmount: item.invested_amount,  // 내가 투자한 금액
-        expectedReturn: item.expected_return,  // 예상 수익률
-        status: item.status,               // 상태 (active/completed)
-        image: item.image || 'https://via.placeholder.com/400x300?text=No+Image', // 이미지
-        userInvestmentId: item.id          // 사용자 투자 내역 ID
+      // API 응답을 UI에 맞게 변환
+      this.investments = myInvestments.map(inv => ({
+        id: inv.investment_id,
+        name: inv.name,
+        location: inv.location,
+        investedAmount: inv.invested_amount,
+        expectedReturn: inv.expected_return,
+        status: inv.status,
+        image: inv.image || 'https://via.placeholder.com/400x300?text=No+Image',
+        userInvestmentId: inv.id // user_investments 테이블의 ID
       }));
       
       return this.investments;

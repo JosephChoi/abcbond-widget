@@ -93,7 +93,7 @@ export class InvestmentPage {
 
     const address = createElement('p', {
       className: 'investment-address',
-      innerHTML: `📍 ${this.investment.address || this.investment.location || '주소 정보 없음'}`
+      innerHTML: `📍 ${this.investment.address}`
     });
     section.appendChild(address);
 
@@ -103,19 +103,15 @@ export class InvestmentPage {
   renderInvestmentInfo() {
     const section = createElement('div', { className: 'investment-info-cards' });
 
-    // API 응답의 필드명은 snake_case일 수 있음
-    const totalAmount = this.investment.total_amount || this.investment.totalAmount || 0;
-    const expectedReturn = this.investment.expected_return || this.investment.expectedReturn || 0;
-
     const cards = [
       { 
-        label: '총 투자금액', 
-        value: `${totalAmount.toLocaleString('ko-KR')}원`,
+        label: '내 투자금', 
+        value: `${this.investment.investedAmount.toLocaleString('ko-KR')}원`,
         className: 'investment-amount'
       },
       { 
         label: '예상 수익률', 
-        value: `${expectedReturn}%`,
+        value: `${this.investment.expectedReturn}%`,
         className: 'expected-return'
       }
     ];
@@ -135,50 +131,36 @@ export class InvestmentPage {
   renderFinancialSummary() {
     const section = createElement('div', { className: 'financial-summary' });
 
-    // API 응답의 필드명 처리 (snake_case or camelCase)
-    const kbValuation = this.investment.kb_valuation || this.investment.kbValuation || 0;
-    const seniorLoan = this.investment.senior_loan || this.investment.seniorLoan || 0;
-    const propertyValue = this.investment.property_value || this.investment.propertyValue || kbValuation;
-    
-    // LTV 계산 (선순위 대출금 / 부동산 가치 * 100)
-    const ltv = propertyValue > 0 ? Math.round((seniorLoan / propertyValue) * 100) : 0;
-
     // KB 시세
-    if (kbValuation > 0) {
-      const kbValue = createElement('div', { className: 'summary-item' });
-      kbValue.innerHTML = `
-        <span class="label">KB 시세</span>
-        <span class="value">${kbValuation.toLocaleString('ko-KR')}원</span>
-      `;
-      section.appendChild(kbValue);
-    }
+    const kbValue = createElement('div', { className: 'summary-item' });
+    kbValue.innerHTML = `
+      <span class="label">KB 시세</span>
+      <span class="value">${this.investment.kbValuation.toLocaleString('ko-KR')}원</span>
+    `;
+    section.appendChild(kbValue);
 
     // 선순위 대출금
-    if (seniorLoan > 0) {
-      const seniorLoanEl = createElement('div', { className: 'summary-item' });
-      seniorLoanEl.innerHTML = `
-        <span class="label">선순위 대출금</span>
-        <span class="value">${seniorLoan.toLocaleString('ko-KR')}원</span>
-      `;
-      section.appendChild(seniorLoanEl);
-    }
+    const seniorLoan = createElement('div', { className: 'summary-item' });
+    seniorLoan.innerHTML = `
+      <span class="label">선순위 대출금</span>
+      <span class="value">${this.investment.seniorLoan.toLocaleString('ko-KR')}원</span>
+    `;
+    section.appendChild(seniorLoan);
 
-    // LTV 비율 (계산된 값 또는 API 값)
-    if (ltv > 0 || propertyValue > 0) {
-      const ltvSection = createElement('div', { className: 'ltv-compact' });
-      ltvSection.innerHTML = `
-        <div class="ltv-header">
-          <span class="label">LTV 비율</span>
-          <span class="value">${ltv}%</span>
+    // LTV 비율
+    const ltvSection = createElement('div', { className: 'ltv-compact' });
+    ltvSection.innerHTML = `
+      <div class="ltv-header">
+        <span class="label">LTV 비율</span>
+        <span class="value">${this.investment.ltv}%</span>
+      </div>
+      <div class="ltv-bar-container">
+        <div class="ltv-bar-fill" style="width: ${this.investment.ltv}%">
+          <span class="ltv-label">${this.investment.ltv}%</span>
         </div>
-        <div class="ltv-bar-container">
-          <div class="ltv-bar-fill" style="width: ${ltv}%">
-            <span class="ltv-label">${ltv}%</span>
-          </div>
-        </div>
-      `;
-      section.appendChild(ltvSection);
-    }
+      </div>
+    `;
+    section.appendChild(ltvSection);
 
     return section;
   }
@@ -256,39 +238,32 @@ export class InvestmentPage {
   renderImageGallery() {
     const gallery = createElement('div', { className: 'investment-gallery' });
 
-    // 이미지 배열 확인 (없으면 기본 이미지 사용)
-    const images = this.investment.images && this.investment.images.length > 0 
-      ? this.investment.images 
-      : ['https://via.placeholder.com/600x400?text=No+Image'];
-
     // 메인 이미지
     const mainImage = createElement('div', { className: 'gallery-main' });
     const img = createElement('img', {
-      src: images[this.currentImageIndex],
+      src: this.investment.images[this.currentImageIndex],
       alt: this.investment.name
     });
     mainImage.appendChild(img);
     gallery.appendChild(mainImage);
 
-    // 썸네일 이미지들 (이미지가 여러 개일 때만 표시)
-    if (images.length > 1) {
-      const thumbnails = createElement('div', { className: 'gallery-thumbnails' });
-      images.forEach((imageSrc, index) => {
-        const thumb = createElement('img', {
-          src: imageSrc,
-          alt: `${this.investment.name} ${index + 1}`,
-          className: index === this.currentImageIndex ? 'active' : ''
-        });
-        thumb.addEventListener('click', () => {
-          this.currentImageIndex = index;
-          img.src = imageSrc;
-          thumbnails.querySelectorAll('img').forEach(t => t.classList.remove('active'));
-          thumb.classList.add('active');
-        });
-        thumbnails.appendChild(thumb);
+    // 썸네일 이미지들
+    const thumbnails = createElement('div', { className: 'gallery-thumbnails' });
+    this.investment.images.forEach((imageSrc, index) => {
+      const thumb = createElement('img', {
+        src: imageSrc,
+        alt: `${this.investment.name} ${index + 1}`,
+        className: index === this.currentImageIndex ? 'active' : ''
       });
-      gallery.appendChild(thumbnails);
-    }
+      thumb.addEventListener('click', () => {
+        this.currentImageIndex = index;
+        img.src = imageSrc;
+        thumbnails.querySelectorAll('img').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+      });
+      thumbnails.appendChild(thumb);
+    });
+    gallery.appendChild(thumbnails);
 
     return gallery;
   }
@@ -305,7 +280,7 @@ export class InvestmentPage {
 
     const description = createElement('p', {
       className: 'investment-description',
-      innerHTML: this.investment.description || '상세 설명 정보가 없습니다.'
+      innerHTML: this.investment.description
     });
     section.appendChild(description);
 
@@ -322,20 +297,8 @@ export class InvestmentPage {
     });
     section.appendChild(title);
 
-    // monthlyInterest 데이터 확인
-    const monthlyInterest = this.investment.monthlyInterest || this.investment.monthly_interest || [];
-    
-    if (monthlyInterest.length === 0) {
-      const noData = createElement('p', {
-        innerHTML: '월별 이자 지급 내역이 없습니다.',
-        style: 'text-align: center; padding: 40px; color: #6c757d;'
-      });
-      section.appendChild(noData);
-      return section;
-    }
-
     // 총 지급액 계산
-    const totalInterest = monthlyInterest.reduce((sum, item) => sum + item.amount, 0);
+    const totalInterest = this.investment.monthlyInterest.reduce((sum, item) => sum + item.amount, 0);
 
     const summary = createElement('div', { className: 'interest-summary' });
     summary.innerHTML = `
@@ -345,7 +308,7 @@ export class InvestmentPage {
       </div>
       <div class="summary-item">
         <span class="label">지급 횟수</span>
-        <span class="value">${monthlyInterest.length}회</span>
+        <span class="value">${this.investment.monthlyInterest.length}회</span>
       </div>
     `;
     section.appendChild(summary);
@@ -367,7 +330,7 @@ export class InvestmentPage {
     const tbody = table.querySelector('tbody');
     let cumulative = 0;
 
-    monthlyInterest.forEach(item => {
+    this.investment.monthlyInterest.forEach(item => {
       cumulative += item.amount;
       const row = createElement('tr');
       row.innerHTML = `
@@ -392,30 +355,18 @@ export class InvestmentPage {
     });
     section.appendChild(title);
 
-    // details 객체 확인
-    const details = this.investment.details || {};
-    
-    if (Object.keys(details).length === 0) {
-      const noData = createElement('p', {
-        innerHTML: '물건 정보가 없습니다.',
-        style: 'text-align: center; padding: 40px; color: #6c757d;'
-      });
-      section.appendChild(noData);
-      return section;
-    }
-
     const table = createElement('table', { className: 'property-info-table' });
     
-    // 안전하게 필드 접근
+    const details = this.investment.details;
     const rows = [
-      ['건물 유형', details.buildingType || details.building_type || '-'],
-      ['전체 세대수', details.totalUnits ? details.totalUnits + '세대' : (details.total_units ? details.total_units + '세대' : '-')],
-      ['준공연도', details.buildYear ? details.buildYear + '년' : (details.build_year ? details.build_year + '년' : '-')],
-      ['전용면적', details.area || '-'],
-      ['층수', details.floor || '-'],
-      ['방향', details.direction || '-'],
-      ['주차', details.parking || '-'],
-      ['난방', details.heating || '-']
+      ['건물 유형', details.buildingType],
+      ['전체 세대수', details.totalUnits + '세대'],
+      ['준공연도', details.buildYear + '년'],
+      ['전용면적', details.area],
+      ['층수', details.floor],
+      ['방향', details.direction],
+      ['주차', details.parking],
+      ['난방', details.heating]
     ];
 
     const tbody = createElement('tbody');
@@ -443,17 +394,7 @@ export class InvestmentPage {
     });
     section.appendChild(title);
 
-    // 등기부등본 데이터 확인
-    const reg = this.investment.registrationDocument || this.investment.registration_document;
-    
-    if (!reg) {
-      const noData = createElement('p', {
-        innerHTML: '등기부등본 정보가 없습니다.',
-        style: 'text-align: center; padding: 40px; color: #6c757d;'
-      });
-      section.appendChild(noData);
-      return section;
-    }
+    const reg = this.investment.registrationDocument;
 
     // 발급일자
     const issueDate = createElement('div', { className: 'reg-issue-date' });

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC Bond API 연결 테스트</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .test-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .test-section h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 8px;
+        }
+
+        .test-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .test-button:hover {
+            background: #5568d3;
+        }
+
+        .test-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .result-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 16px;
+            margin-top: 16px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .result-box pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .success {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .error {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .info {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 12px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .token-info {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin-top: 16px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔌 ABC Bond API 연결 테스트</h1>
+            <p>실제 API 서버와의 연결을 테스트합니다</p>
+        </div>
+
+        <!-- 1. Health Check -->
+        <div class="test-section">
+            <h2>1. Health Check</h2>
+            <div class="info">
+                <strong>엔드포인트:</strong> GET /health<br>
+                <strong>설명:</strong> API 서버가 정상 작동하는지 확인합니다.
+            </div>
+            <button class="test-button" onclick="testHealthCheck()">테스트 실행</button>
+            <div id="health-result" class="result-box" style="display:none;"></div>
+        </div>
+
+        <!-- 2. Login -->
+        <div class="test-section">
+            <h2>2. 로그인</h2>
+            <div class="info">
+                <strong>엔드포인트:</strong> POST /auth/login<br>
+                <strong>설명:</strong> 사용자 인증을 수행하고 JWT 토큰을 받습니다.
+            </div>
+            <div class="input-group">
+                <label>아이디</label>
+                <input type="text" id="username" value="user1" placeholder="아이디를 입력하세요">
+            </div>
+            <div class="input-group">
+                <label>비밀번호</label>
+                <input type="password" id="password" value="1234" placeholder="비밀번호를 입력하세요">
+            </div>
+            <button class="test-button" onclick="testLogin()">로그인 테스트</button>
+            <button class="test-button" onclick="clearToken()">토큰 삭제</button>
+            <div id="login-result" class="result-box" style="display:none;"></div>
+            <div id="token-info" class="token-info" style="display:none;"></div>
+        </div>
+
+        <!-- 3. My Investments -->
+        <div class="test-section">
+            <h2>3. 내 투자 내역 조회</h2>
+            <div class="info">
+                <strong>엔드포인트:</strong> GET /user-investments/my<br>
+                <strong>설명:</strong> 로그인한 사용자의 투자 내역을 조회합니다.<br>
+                <strong>인증 필요:</strong> ✅ (먼저 로그인해야 합니다)
+            </div>
+            <button class="test-button" onclick="testMyInvestments()" id="btn-my-investments" disabled>테스트 실행</button>
+            <div id="my-investments-result" class="result-box" style="display:none;"></div>
+        </div>
+
+        <!-- 4. Investment Detail -->
+        <div class="test-section">
+            <h2>4. 투자 상품 상세 조회</h2>
+            <div class="info">
+                <strong>엔드포인트:</strong> GET /investments/:id<br>
+                <strong>설명:</strong> 특정 투자 상품의 상세 정보를 조회합니다.
+            </div>
+            <div class="input-group">
+                <label>투자 상품 ID</label>
+                <input type="number" id="investment-id" value="1" placeholder="투자 상품 ID">
+            </div>
+            <button class="test-button" onclick="testInvestmentDetail()">테스트 실행</button>
+            <div id="investment-detail-result" class="result-box" style="display:none;"></div>
+        </div>
+
+        <!-- 5. My Profile -->
+        <div class="test-section">
+            <h2>5. 내 프로필 조회</h2>
+            <div class="info">
+                <strong>엔드포인트:</strong> GET /users/profile<br>
+                <strong>설명:</strong> 로그인한 사용자의 프로필 정보를 조회합니다.<br>
+                <strong>인증 필요:</strong> ✅
+            </div>
+            <button class="test-button" onclick="testMyProfile()" id="btn-my-profile" disabled>테스트 실행</button>
+            <div id="my-profile-result" class="result-box" style="display:none;"></div>
+        </div>
+
+        <!-- 6. My Investment Stats -->
+        <div class="test-section">
+            <h2>6. 내 투자 통계 조회</h2>
+            <div class="info">
+                <strong>엔드포인트:</strong> GET /user-investments/my/stats<br>
+                <strong>설명:</strong> 총 투자금액, 예상 수익률 등 통계를 조회합니다.<br>
+                <strong>인증 필요:</strong> ✅
+            </div>
+            <button class="test-button" onclick="testMyStats()" id="btn-my-stats" disabled>테스트 실행</button>
+            <div id="my-stats-result" class="result-box" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'https://abcbond-api.sixman-joseph.workers.dev';
+        let authToken = localStorage.getItem('test-token');
+
+        // 페이지 로드 시 토큰 확인
+        window.addEventListener('load', () => {
+            checkToken();
+        });
+
+        function checkToken() {
+            const hasToken = !!authToken;
+            document.getElementById('btn-my-investments').disabled = !hasToken;
+            document.getElementById('btn-my-profile').disabled = !hasToken;
+            document.getElementById('btn-my-stats').disabled = !hasToken;
+
+            if (hasToken) {
+                document.getElementById('token-info').style.display = 'block';
+                document.getElementById('token-info').innerHTML = 
+                    `<strong>✅ 인증 토큰이 저장되어 있습니다</strong><br>토큰: ${authToken.substring(0, 20)}...`;
+            }
+        }
+
+        function clearToken() {
+            authToken = null;
+            localStorage.removeItem('test-token');
+            checkToken();
+            showResult('login-result', { message: '토큰이 삭제되었습니다.' }, true);
+        }
+
+        function showResult(elementId, data, isSuccess = true) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            
+            const statusClass = isSuccess ? 'success' : 'error';
+            const statusText = isSuccess ? '✅ 성공' : '❌ 실패';
+            
+            element.innerHTML = `
+                <div class="${statusClass}">${statusText}</div>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+        }
+
+        async function testHealthCheck() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/health`);
+                const data = await response.json();
+                showResult('health-result', data, response.ok);
+            } catch (error) {
+                showResult('health-result', { error: error.message }, false);
+            }
+        }
+
+        async function testLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const data = await response.json();
+                
+                if (response.ok && data.success && data.token) {
+                    authToken = data.token;
+                    localStorage.setItem('test-token', authToken);
+                    checkToken();
+                    showResult('login-result', data, true);
+                } else {
+                    showResult('login-result', data, false);
+                }
+            } catch (error) {
+                showResult('login-result', { error: error.message }, false);
+            }
+        }
+
+        async function testMyInvestments() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/user-investments/my`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                    },
+                });
+
+                const data = await response.json();
+                showResult('my-investments-result', data, response.ok);
+            } catch (error) {
+                showResult('my-investments-result', { error: error.message }, false);
+            }
+        }
+
+        async function testInvestmentDetail() {
+            const investmentId = document.getElementById('investment-id').value;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/investments/${investmentId}`);
+                const data = await response.json();
+                showResult('investment-detail-result', data, response.ok);
+            } catch (error) {
+                showResult('investment-detail-result', { error: error.message }, false);
+            }
+        }
+
+        async function testMyProfile() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/users/profile`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                    },
+                });
+
+                const data = await response.json();
+                showResult('my-profile-result', data, response.ok);
+            } catch (error) {
+                showResult('my-profile-result', { error: error.message }, false);
+            }
+        }
+
+        async function testMyStats() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/user-investments/my/stats`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                    },
+                });
+
+                const data = await response.json();
+                showResult('my-stats-result', data, response.ok);
+            } catch (error) {
+                showResult('my-stats-result', { error: error.message }, false);
+            }
+        }
+    </script>
+</body>
+</html>
+

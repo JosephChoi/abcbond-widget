@@ -1,17 +1,16 @@
-// API 호출 로직 - ABC Bond API 연동
+// API 호출 로직
 
 const API_BASE_URL = 'https://abcbond-api.sixman-joseph.workers.dev';
 
 /**
- * Get stored JWT token
- * @returns {string|null} JWT token or null
+ * Get auth token from localStorage
  */
 function getAuthToken() {
   try {
     const state = localStorage.getItem('widget-state');
     if (state) {
-      const parsed = JSON.parse(state);
-      return parsed.token || null;
+      const parsedState = JSON.parse(state);
+      return parsedState.token || null;
     }
   } catch (error) {
     console.warn('Failed to get auth token:', error);
@@ -33,7 +32,7 @@ export async function fetchAPI(endpoint, options = {}) {
       ...options.headers,
     };
 
-    // Add Authorization header if token exists
+    // 토큰이 있으면 Authorization 헤더 추가
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
@@ -58,7 +57,7 @@ export async function fetchAPI(endpoint, options = {}) {
 
 /**
  * Get my investment list (내 투자 내역)
- * @returns {Promise<array>} Investment list
+ * @returns {Promise<Array>} Investment list
  */
 export async function getMyInvestments() {
   try {
@@ -71,31 +70,9 @@ export async function getMyInvestments() {
 }
 
 /**
- * Get all investments (전체 투자 상품 목록)
- * @param {object} filters - Filter options (status, type)
- * @returns {Promise<array>} Investment list
- */
-export async function getInvestments(filters = {}) {
-  try {
-    const params = new URLSearchParams();
-    if (filters.status) params.append('status', filters.status);
-    if (filters.type) params.append('type', filters.type);
-    
-    const queryString = params.toString();
-    const endpoint = queryString ? `/investments?${queryString}` : '/investments';
-    
-    const response = await fetchAPI(endpoint);
-    return response.success ? response.data : [];
-  } catch (error) {
-    console.error('Failed to fetch investments:', error);
-    throw error;
-  }
-}
-
-/**
  * Get investment detail
  * @param {number} investmentId - Investment ID
- * @returns {Promise<object>} Investment detail
+ * @returns {Promise<object|null>} Investment detail
  */
 export async function getInvestmentDetail(investmentId) {
   try {
@@ -108,24 +85,10 @@ export async function getInvestmentDetail(investmentId) {
 }
 
 /**
- * Get my investment stats (내 투자 통계)
- * @returns {Promise<object>} Investment statistics
- */
-export async function getMyInvestmentStats() {
-  try {
-    const response = await fetchAPI('/user-investments/my/stats');
-    return response.success ? response.data : null;
-  } catch (error) {
-    console.error('Failed to fetch investment stats:', error);
-    throw error;
-  }
-}
-
-/**
  * Login with username and password
  * @param {string} username 
  * @param {string} password 
- * @returns {Promise<object>} { token, user }
+ * @returns {Promise<{token: string, user: object}|null>} Login response
  */
 export async function login(username, password) {
   try {
@@ -149,15 +112,29 @@ export async function login(username, password) {
 }
 
 /**
- * Get user profile (내 프로필)
- * @returns {Promise<object>} User profile
+ * Get my profile
+ * @returns {Promise<object|null>} User profile
  */
-export async function getUserProfile() {
+export async function getMyProfile() {
   try {
     const response = await fetchAPI('/users/profile');
     return response.success ? response.data : null;
   } catch (error) {
-    console.error('Failed to fetch user profile:', error);
+    console.error('Failed to fetch profile:', error);
+    throw error;
+  }
+}
+
+/**
+ * Get my investment statistics
+ * @returns {Promise<object|null>} Investment statistics
+ */
+export async function getMyInvestmentStats() {
+  try {
+    const response = await fetchAPI('/user-investments/my/stats');
+    return response.success ? response.data : null;
+  } catch (error) {
+    console.error('Failed to fetch investment stats:', error);
     throw error;
   }
 }
