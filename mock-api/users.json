@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "username": "user1",
+    "password": "1234",
+    "name": "김투자",
+    "email": "user1@example.com",
+    "investments": [1, 2, 3]
+  },
+  {
+    "id": 2,
+    "username": "user2",
+    "password": "1234",
+    "name": "이부자",
+    "email": "user2@example.com",
+    "investments": [4, 5]
+  },
+  {
+    "id": 3,
+    "username": "admin",
+    "password": "admin",
+    "name": "관리자",
+    "email": "admin@example.com",
+    "investments": [1, 2, 3, 4, 5, 6]
+  }
+]
+

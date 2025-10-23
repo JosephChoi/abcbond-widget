@@ -1,0 +1,475 @@
+{
+  "1": {
+    "id": 1,
+    "name": "강남 래미안 퍼스티지",
+    "location": "서울 강남구 대치동",
+    "address": "서울특별시 강남구 대치동 123-45",
+    "investedAmount": 50000000,
+    "totalAmount": 15000000000,
+    "expectedReturn": 8.5,
+    "startDate": "2024-01-15",
+    "endDate": "2026-01-15",
+    "image": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop"
+    ],
+    "status": "active",
+    "type": "apartment",
+    "description": "강남 핵심 지역에 위치한 프리미엄 아파트 투자 상품입니다. 대치동 은마아파트 재건축 단지로, 뛰어난 교통 접근성과 교육 환경을 자랑합니다. 안정적인 월 배당 수익과 함께 자산 가치 상승을 기대할 수 있는 우량 투자처입니다.",
+    "propertyValue": 18000000000,
+    "kbValuation": 18500000000,
+    "seniorLoan": 10000000000,
+    "ltv": 55.6,
+    "monthlyInterest": [
+      { "month": "2024-02", "amount": 354166 },
+      { "month": "2024-03", "amount": 354166 },
+      { "month": "2024-04", "amount": 354166 },
+      { "month": "2024-05", "amount": 354166 },
+      { "month": "2024-06", "amount": 354166 },
+      { "month": "2024-07", "amount": 354166 },
+      { "month": "2024-08", "amount": 354166 },
+      { "month": "2024-09", "amount": 354166 },
+      { "month": "2024-10", "amount": 354166 }
+    ],
+    "details": {
+      "buildingType": "아파트",
+      "totalUnits": 1248,
+      "buildYear": 2023,
+      "area": "84㎡",
+      "floor": "중층",
+      "direction": "남향",
+      "parking": "1.5대/세대",
+      "heating": "중앙난방"
+    },
+    "registrationDocument": {
+      "issueDate": "2024-01-10",
+      "propertyInfo": {
+        "address": "서울특별시 강남구 대치동 123-45",
+        "buildingName": "래미안 퍼스티지",
+        "buildingType": "아파트",
+        "structure": "철근콘크리트구조",
+        "floors": "지하 2층, 지상 25층",
+        "totalArea": "84.99㎡",
+        "buildDate": "2023년 3월 15일"
+      },
+      "ownershipInfo": {
+        "owner": "ABC Bond 투자조합",
+        "registrationDate": "2024-01-15",
+        "registrationCause": "매매",
+        "shareRatio": "1/1"
+      },
+      "rightsInfo": [
+        {
+          "type": "소유권",
+          "holder": "ABC Bond 투자조합",
+          "registrationDate": "2024-01-15",
+          "purpose": "소유권이전"
+        }
+      ],
+      "restrictionsInfo": [
+        {
+          "type": "근저당권",
+          "holder": "KB국민은행",
+          "amount": 10000000000,
+          "registrationDate": "2024-01-16",
+          "purpose": "채권최고액"
+        }
+      ]
+    }
+  },
+  "2": {
+    "id": 2,
+    "name": "여의도 트리마제",
+    "location": "서울 영등포구 여의도동",
+    "address": "서울특별시 영등포구 여의도동 23-1",
+    "investedAmount": 30000000,
+    "totalAmount": 12000000000,
+    "expectedReturn": 7.2,
+    "startDate": "2024-03-20",
+    "endDate": "2026-03-20",
+    "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop"
+    ],
+    "status": "active",
+    "type": "apartment",
+    "description": "여의도 금융 중심지에 위치한 최고급 주거 단지입니다. 한강 조망이 가능하며, CBD 접근성이 우수합니다. 안정적인 임대 수요와 높은 자산 가치로 장기 투자에 적합합니다.",
+    "propertyValue": 14000000000,
+    "kbValuation": 14800000000,
+    "seniorLoan": 8000000000,
+    "ltv": 57.1,
+    "monthlyInterest": [
+      { "month": "2024-04", "amount": 180000 },
+      { "month": "2024-05", "amount": 180000 },
+      { "month": "2024-06", "amount": 180000 },
+      { "month": "2024-07", "amount": 180000 },
+      { "month": "2024-08", "amount": 180000 },
+      { "month": "2024-09", "amount": 180000 },
+      { "month": "2024-10", "amount": 180000 }
+    ],
+    "details": {
+      "buildingType": "아파트",
+      "totalUnits": 892,
+      "buildYear": 2022,
+      "area": "114㎡",
+      "floor": "고층",
+      "direction": "남동향",
+      "parking": "2대/세대",
+      "heating": "개별난방"
+    },
+    "registrationDocument": {
+      "issueDate": "2024-03-15",
+      "propertyInfo": {
+        "address": "서울특별시 영등포구 여의도동 23-1",
+        "buildingName": "트리마제",
+        "buildingType": "아파트",
+        "structure": "철근콘크리트구조",
+        "floors": "지하 3층, 지상 30층",
+        "totalArea": "114.35㎡",
+        "buildDate": "2022년 9월 20일"
+      },
+      "ownershipInfo": {
+        "owner": "ABC Bond 투자조합",
+        "registrationDate": "2024-03-20",
+        "registrationCause": "매매",
+        "shareRatio": "1/1"
+      },
+      "rightsInfo": [
+        {
+          "type": "소유권",
+          "holder": "ABC Bond 투자조합",
+          "registrationDate": "2024-03-20",
+          "purpose": "소유권이전"
+        }
+      ],
+      "restrictionsInfo": [
+        {
+          "type": "근저당권",
+          "holder": "신한은행",
+          "amount": 8000000000,
+          "registrationDate": "2024-03-21",
+          "purpose": "채권최고액"
+        }
+      ]
+    }
+  },
+  "3": {
+    "id": 3,
+    "name": "송파 헬리오시티",
+    "location": "서울 송파구 신천동",
+    "address": "서울특별시 송파구 신천동 7-20",
+    "investedAmount": 20000000,
+    "totalAmount": 18000000000,
+    "expectedReturn": 9.1,
+    "startDate": "2024-02-10",
+    "endDate": "2026-02-10",
+    "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop"
+    ],
+    "status": "active",
+    "type": "apartment",
+    "description": "송파구 최대 규모의 프리미엄 복합 단지입니다. 롯데월드타워 인근으로 생활 편의시설이 우수하며, GTX 개통 예정으로 향후 가치 상승이 기대됩니다.",
+    "propertyValue": 20000000000,
+    "kbValuation": 21000000000,
+    "seniorLoan": 11000000000,
+    "ltv": 55.0,
+    "monthlyInterest": [
+      { "month": "2024-03", "amount": 151666 },
+      { "month": "2024-04", "amount": 151666 },
+      { "month": "2024-05", "amount": 151666 },
+      { "month": "2024-06", "amount": 151666 },
+      { "month": "2024-07", "amount": 151666 },
+      { "month": "2024-08", "amount": 151666 },
+      { "month": "2024-09", "amount": 151666 },
+      { "month": "2024-10", "amount": 151666 }
+    ],
+    "details": {
+      "buildingType": "아파트",
+      "totalUnits": 3508,
+      "buildYear": 2021,
+      "area": "99㎡",
+      "floor": "중층",
+      "direction": "남향",
+      "parking": "1.8대/세대",
+      "heating": "지역난방"
+    },
+    "registrationDocument": {
+      "issueDate": "2024-02-05",
+      "propertyInfo": {
+        "address": "서울특별시 송파구 신천동 7-20",
+        "buildingName": "헬리오시티",
+        "buildingType": "아파트",
+        "structure": "철근콘크리트구조",
+        "floors": "지하 4층, 지상 35층",
+        "totalArea": "99.85㎡",
+        "buildDate": "2021년 12월 10일"
+      },
+      "ownershipInfo": {
+        "owner": "ABC Bond 투자조합",
+        "registrationDate": "2024-02-10",
+        "registrationCause": "매매",
+        "shareRatio": "1/1"
+      },
+      "rightsInfo": [
+        {
+          "type": "소유권",
+          "holder": "ABC Bond 투자조합",
+          "registrationDate": "2024-02-10",
+          "purpose": "소유권이전"
+        }
+      ],
+      "restrictionsInfo": [
+        {
+          "type": "근저당권",
+          "holder": "하나은행",
+          "amount": 11000000000,
+          "registrationDate": "2024-02-11",
+          "purpose": "채권최고액"
+        }
+      ]
+    }
+  },
+  "4": {
+    "id": 4,
+    "name": "판교 알파리움",
+    "location": "경기 성남시 분당구 판교동",
+    "address": "경기도 성남시 분당구 판교동 532",
+    "investedAmount": 40000000,
+    "totalAmount": 20000000000,
+    "expectedReturn": 10.3,
+    "startDate": "2023-11-05",
+    "endDate": "2025-11-05",
+    "image": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop"
+    ],
+    "status": "active",
+    "type": "apartment",
+    "description": "판교 테크노밸리 핵심 지역의 프리미엄 주거 단지입니다. IT 기업 밀집 지역으로 안정적인 임대 수요가 보장되며, 뛰어난 교육 환경과 생활 인프라를 갖추고 있습니다.",
+    "propertyValue": 22000000000,
+    "kbValuation": 23000000000,
+    "seniorLoan": 12000000000,
+    "ltv": 54.5,
+    "monthlyInterest": [
+      { "month": "2023-12", "amount": 343333 },
+      { "month": "2024-01", "amount": 343333 },
+      { "month": "2024-02", "amount": 343333 },
+      { "month": "2024-03", "amount": 343333 },
+      { "month": "2024-04", "amount": 343333 },
+      { "month": "2024-05", "amount": 343333 },
+      { "month": "2024-06", "amount": 343333 },
+      { "month": "2024-07", "amount": 343333 },
+      { "month": "2024-08", "amount": 343333 },
+      { "month": "2024-09", "amount": 343333 },
+      { "month": "2024-10", "amount": 343333 }
+    ],
+    "details": {
+      "buildingType": "아파트",
+      "totalUnits": 1680,
+      "buildYear": 2020,
+      "area": "124㎡",
+      "floor": "고층",
+      "direction": "남서향",
+      "parking": "2.2대/세대",
+      "heating": "개별난방"
+    },
+    "registrationDocument": {
+      "issueDate": "2023-10-30",
+      "propertyInfo": {
+        "address": "경기도 성남시 분당구 판교동 532",
+        "buildingName": "알파리움",
+        "buildingType": "아파트",
+        "structure": "철근콘크리트구조",
+        "floors": "지하 3층, 지상 28층",
+        "totalArea": "124.72㎡",
+        "buildDate": "2020년 6월 25일"
+      },
+      "ownershipInfo": {
+        "owner": "ABC Bond 투자조합",
+        "registrationDate": "2023-11-05",
+        "registrationCause": "매매",
+        "shareRatio": "1/1"
+      },
+      "rightsInfo": [
+        {
+          "type": "소유권",
+          "holder": "ABC Bond 투자조합",
+          "registrationDate": "2023-11-05",
+          "purpose": "소유권이전"
+        }
+      ],
+      "restrictionsInfo": [
+        {
+          "type": "근저당권",
+          "holder": "우리은행",
+          "amount": 12000000000,
+          "registrationDate": "2023-11-06",
+          "purpose": "채권최고액"
+        }
+      ]
+    }
+  },
+  "5": {
+    "id": 5,
+    "name": "마포 래미안 푸르지오",
+    "location": "서울 마포구 공덕동",
+    "address": "서울특별시 마포구 공덕동 105",
+    "investedAmount": 25000000,
+    "totalAmount": 13500000000,
+    "expectedReturn": 6.8,
+    "startDate": "2024-04-01",
+    "endDate": "2026-04-01",
+    "image": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop"
+    ],
+    "status": "active",
+    "type": "apartment",
+    "description": "마포 공덕역 초역세권 프리미엄 아파트입니다. 5호선, 6호선, 경의중앙선, 공항철도 4개 노선 이용 가능하며, 업무 지구와의 접근성이 뛰어납니다.",
+    "propertyValue": 15000000000,
+    "kbValuation": 15800000000,
+    "seniorLoan": 8500000000,
+    "ltv": 56.7,
+    "monthlyInterest": [
+      { "month": "2024-05", "amount": 141666 },
+      { "month": "2024-06", "amount": 141666 },
+      { "month": "2024-07", "amount": 141666 },
+      { "month": "2024-08", "amount": 141666 },
+      { "month": "2024-09", "amount": 141666 },
+      { "month": "2024-10", "amount": 141666 }
+    ],
+    "details": {
+      "buildingType": "아파트",
+      "totalUnits": 756,
+      "buildYear": 2021,
+      "area": "84㎡",
+      "floor": "중층",
+      "direction": "남향",
+      "parking": "1.6대/세대",
+      "heating": "지역난방"
+    },
+    "registrationDocument": {
+      "issueDate": "2024-03-25",
+      "propertyInfo": {
+        "address": "서울특별시 마포구 공덕동 105",
+        "buildingName": "래미안 푸르지오",
+        "buildingType": "아파트",
+        "structure": "철근콘크리트구조",
+        "floors": "지하 2층, 지상 25층",
+        "totalArea": "84.96㎡",
+        "buildDate": "2021년 5월 30일"
+      },
+      "ownershipInfo": {
+        "owner": "ABC Bond 투자조합",
+        "registrationDate": "2024-04-01",
+        "registrationCause": "매매",
+        "shareRatio": "1/1"
+      },
+      "rightsInfo": [
+        {
+          "type": "소유권",
+          "holder": "ABC Bond 투자조합",
+          "registrationDate": "2024-04-01",
+          "purpose": "소유권이전"
+        }
+      ],
+      "restrictionsInfo": [
+        {
+          "type": "근저당권",
+          "holder": "기업은행",
+          "amount": 8500000000,
+          "registrationDate": "2024-04-02",
+          "purpose": "채권최고액"
+        }
+      ]
+    }
+  },
+  "6": {
+    "id": 6,
+    "name": "용산 더샵",
+    "location": "서울 용산구 이촌동",
+    "address": "서울특별시 용산구 이촌동 302-11",
+    "investedAmount": 35000000,
+    "totalAmount": 16000000000,
+    "expectedReturn": 8.9,
+    "startDate": "2024-05-15",
+    "endDate": "2026-05-15",
+    "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop"
+    ],
+    "status": "active",
+    "type": "apartment",
+    "description": "용산 한강변의 프리미엄 주거 단지입니다. 한강 조망과 함께 용산 국제업무지구 개발로 인한 가치 상승이 기대됩니다. 교통과 교육 환경이 우수한 입지입니다.",
+    "propertyValue": 17000000000,
+    "kbValuation": 18000000000,
+    "seniorLoan": 9500000000,
+    "ltv": 55.9,
+    "monthlyInterest": [
+      { "month": "2024-06", "amount": 259583 },
+      { "month": "2024-07", "amount": 259583 },
+      { "month": "2024-08", "amount": 259583 },
+      { "month": "2024-09", "amount": 259583 },
+      { "month": "2024-10", "amount": 259583 }
+    ],
+    "details": {
+      "buildingType": "아파트",
+      "totalUnits": 1024,
+      "buildYear": 2022,
+      "area": "109㎡",
+      "floor": "중고층",
+      "direction": "남향",
+      "parking": "1.9대/세대",
+      "heating": "개별난방"
+    },
+    "registrationDocument": {
+      "issueDate": "2024-05-10",
+      "propertyInfo": {
+        "address": "서울특별시 용산구 이촌동 302-11",
+        "buildingName": "더샵",
+        "buildingType": "아파트",
+        "structure": "철근콘크리트구조",
+        "floors": "지하 3층, 지상 32층",
+        "totalArea": "109.44㎡",
+        "buildDate": "2022년 8월 20일"
+      },
+      "ownershipInfo": {
+        "owner": "ABC Bond 투자조합",
+        "registrationDate": "2024-05-15",
+        "registrationCause": "매매",
+        "shareRatio": "1/1"
+      },
+      "rightsInfo": [
+        {
+          "type": "소유권",
+          "holder": "ABC Bond 투자조합",
+          "registrationDate": "2024-05-15",
+          "purpose": "소유권이전"
+        }
+      ],
+      "restrictionsInfo": [
+        {
+          "type": "근저당권",
+          "holder": "NH농협은행",
+          "amount": 9500000000,
+          "registrationDate": "2024-05-16",
+          "purpose": "채권최고액"
+        }
+      ]
+    }
+  }
+}
+

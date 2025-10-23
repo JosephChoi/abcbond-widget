@@ -1,0 +1,61 @@
+// Pages Template Entry Point
+
+import { styles } from './styles/main.css.js';
+import { Widget } from './core/widget.js';
+import { Router } from './core/router.js';
+import { State, getState } from './core/state.js';
+import { LoginPage } from './pages/login.js';
+import { IndexPage } from './pages/index.js';
+import { InvestmentPage } from './pages/investment.js';
+import { Modal } from './components/Modal.js';
+
+// Inject styles
+function injectStyles() {
+  const styleId = 'pages-template-styles';
+
+  // Check if styles already injected
+  if (document.getElementById(styleId)) {
+    return;
+  }
+
+  const styleElement = document.createElement('style');
+  styleElement.id = styleId;
+  styleElement.textContent = styles;
+  document.head.appendChild(styleElement);
+}
+
+// Auto-initialize when loaded as module
+if (typeof window !== 'undefined') {
+  injectStyles();
+
+  // Expose global API
+  window.PagesTemplate = {
+    Widget,
+    Router,
+    State,
+    getState,
+    components: {
+      LoginPage,
+      IndexPage,
+      InvestmentPage,
+      Modal
+    }
+  };
+
+  // Expose Widget directly for easier usage
+  window.Widget = Widget;
+
+  console.log('Pages Template loaded.');
+}
+
+// ES6 exports
+export {
+  Widget,
+  Router,
+  State,
+  getState,
+  LoginPage,
+  IndexPage,
+  InvestmentPage,
+  Modal
+};
