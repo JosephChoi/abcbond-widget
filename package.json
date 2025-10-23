@@ -1,15 +1,19 @@
 {
-  "name": "pages-template",
+  "name": "abcbond-widget",
   "version": "1.0.0",
-  "description": "Cloudflare Pages template project",
+  "description": "ABC Bond real estate investment platform widget",
   "type": "module",
   "scripts": {
     "build": "node build.js",
     "dev": "node build.js --watch"
   },
-  "keywords": ["cloudflare", "pages", "template"],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["real-estate", "investment", "widget", "abcbond"],
+  "author": "JosephChoi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JosephChoi/abcbond-widget.git"
+  },
   "devDependencies": {
     "esbuild": "^0.20.0"
   }
