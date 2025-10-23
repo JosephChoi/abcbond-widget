@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC Bond Widget Demo - 프로덕션 빌드</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header .subtitle {
+            font-size: 20px;
+            opacity: 0.95;
+            margin-bottom: 12px;
+        }
+
+        .header .build-info {
+            font-size: 14px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-top: 8px;
+        }
+
+        .content {
+            margin-bottom: 40px;
+        }
+
+        .usage-guide {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .usage-guide h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .usage-codes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 16px;
+        }
+
+        .code-block h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .code-block pre {
+            margin: 0;
+            overflow-x: auto;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .code-block code {
+            font-family: 'Monaco', 'Consolas', monospace;
+            color: #e83e8c;
+        }
+
+        .widget-demo {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .widget-demo h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: #333;
+            text-align: center;
+        }
+
+        #widget-root {
+            min-height: 500px;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.9;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 968px) {
+            .header h1 {
+                font-size: 36px;
+            }
+
+            .usage-codes {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏢 ABC Bond Widget</h1>
+            <p class="subtitle">부동산 투자 플랫폼 위젯 데모</p>
+            <p class="build-info">✨ 프로덕션 빌드 버전 (Minified)</p>
+        </div>
+
+        <div class="content">
+            <!-- 사용법 가이드 -->
+            <div class="usage-guide">
+                <h2>🚀 프로덕션 배포 방법</h2>
+                <div class="usage-codes">
+                    <div class="code-block">
+                        <h3>로컬 파일 사용</h3>
+                        <pre><code>&lt;div id="widget-root"&gt;&lt;/div&gt;
+&lt;script src="./dist/abcbond-widget.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  const widget = new PagesTemplate.Widget('#widget-root', {
+    persistState: true
+  });
+&lt;/script&gt;</code></pre>
+                    </div>
+
+                    <div class="code-block">
+                        <h3>CDN 사용 (jsDelivr)</h3>
+                        <pre><code>&lt;div id="widget-root"&gt;&lt;/div&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/JosephChoi/abcbond-widget@main/dist/abcbond-widget.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  const widget = new PagesTemplate.Widget('#widget-root', {
+    persistState: true
+  });
+&lt;/script&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 위젯 -->
+            <div class="widget-demo">
+                <div id="widget-root"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Built with ❤️ for Real Estate Investors</p>
+            <p><a href="https://github.com/JosephChoi/abcbond-widget" target="_blank">GitHub Repository</a></p>
+        </div>
+    </div>
+
+    <!-- 프로덕션 빌드 파일 로드 -->
+    <script src="./dist/abcbond-widget.min.js"></script>
+    <script>
+        // 빌드된 파일을 사용하는 방식
+        const widget = new PagesTemplate.Widget('#widget-root', {
+            persistState: true
+        });
+
+        console.log('ABC Bond Widget loaded (Production Build)');
+        console.log('Widget instance:', widget);
+    </script>
+</body>
+</html>
+
