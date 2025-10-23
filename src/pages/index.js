@@ -1,6 +1,6 @@
 // 홈 페이지 (투자 상품 목록 - 아파트)
 
-import { getInvestments } from '../core/api.js';
+import { getMyInvestments } from '../core/api.js';
 import { createElement } from '../utils/dom.js';
 
 export class IndexPage {
@@ -13,19 +13,21 @@ export class IndexPage {
 
   async loadInvestments() {
     try {
-      const allInvestments = await getInvestments();
+      // API에서 사용자의 투자 내역 가져오기
+      // 응답: [{ id, investment_id, invested_amount, invested_date, status, name, location, expected_return }]
+      const myInvestments = await getMyInvestments();
       
-      // 사용자별 투자 상품 필터링
-      const user = this.state ? this.state.getUser() : null;
-      if (user && user.investments) {
-        // 사용자가 투자한 상품만 필터링
-        this.investments = allInvestments.filter(inv => 
-          user.investments.includes(inv.id)
-        );
-      } else {
-        // 사용자 정보가 없으면 전체 표시
-        this.investments = allInvestments;
-      }
+      // API 응답을 화면에 표시할 형식으로 변환
+      this.investments = myInvestments.map(item => ({
+        id: item.investment_id,           // 투자 상품 ID
+        name: item.name,                   // 아파트 이름
+        location: item.location,           // 위치
+        investedAmount: item.invested_amount,  // 내가 투자한 금액
+        expectedReturn: item.expected_return,  // 예상 수익률
+        status: item.status,               // 상태 (active/completed)
+        image: item.image || 'https://via.placeholder.com/400x300?text=No+Image', // 이미지
+        userInvestmentId: item.id          // 사용자 투자 내역 ID
+      }));
       
       return this.investments;
     } catch (error) {

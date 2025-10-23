@@ -4,6 +4,7 @@ export class State {
   constructor() {
     this.state = {
       user: null,         // 사용자 정보
+      token: null,        // JWT 토큰
       currentView: null   // 현재 뷰
     };
     this.listeners = new Map(); // key: eventName, value: [callbacks]
@@ -66,10 +67,10 @@ export class State {
 
 
   /**
-   * 사용자 설정
+   * 사용자 설정 (토큰 포함)
    */
-  setUser(user) {
-    this.setState({ user });
+  setUser(user, token = null) {
+    this.setState({ user, token });
   }
 
   /**
@@ -80,17 +81,31 @@ export class State {
   }
 
   /**
+   * 토큰 가져오기
+   */
+  getToken() {
+    return this.state.token;
+  }
+
+  /**
+   * 토큰 설정
+   */
+  setToken(token) {
+    this.setState({ token });
+  }
+
+  /**
    * 로그인 여부 확인
    */
   isAuthenticated() {
-    return this.state.user !== null;
+    return this.state.user !== null && this.state.token !== null;
   }
 
   /**
    * 로그아웃
    */
   logout() {
-    this.setState({ user: null });
+    this.setState({ user: null, token: null });
     // LocalStorage에서도 제거
     try {
       localStorage.removeItem('widget-state');
@@ -113,6 +128,7 @@ export class State {
   reset() {
     this.state = {
       user: null,
+      token: null,
       currentView: null
     };
     this.notify('*', this.state, {});
@@ -124,7 +140,8 @@ export class State {
   saveToStorage() {
     try {
       localStorage.setItem('widget-state', JSON.stringify({
-        user: this.state.user
+        user: this.state.user,
+        token: this.state.token
       }));
     } catch (error) {
       console.warn('Failed to save state to localStorage:', error);
@@ -140,7 +157,8 @@ export class State {
       if (saved) {
         const data = JSON.parse(saved);
         this.setState({
-          user: data.user || null
+          user: data.user || null,
+          token: data.token || null
         });
       }
     } catch (error) {

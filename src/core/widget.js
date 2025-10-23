@@ -124,9 +124,10 @@ export class Widget {
 
     const loginPage = new LoginPage({
       state: this.state,
-      onLoginSuccess: (user) => {
-        // 로그인 성공 시 사용자 정보 저장
-        this.state.setUser(user);
+      onLoginSuccess: (response) => {
+        // API 응답: { token, user }
+        // 로그인 성공 시 사용자 정보와 토큰 저장
+        this.state.setUser(response.user, response.token);
         
         // 상태 저장
         if (this.config.persistState !== false) {

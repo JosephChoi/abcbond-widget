@@ -131,12 +131,12 @@ export class LoginPage {
     errorBox.style.display = 'none';
 
     try {
-      // 로그인 시도
-      const user = await login(username, password);
+      // 로그인 시도 - API에서 { token, user } 반환
+      const response = await login(username, password);
 
-      if (user) {
-        // 로그인 성공
-        this.onLoginSuccess(user);
+      if (response && response.token && response.user) {
+        // 로그인 성공 - token과 user를 함께 전달
+        this.onLoginSuccess(response);
       } else {
         // 로그인 실패
         this.showError(errorBox, '아이디 또는 비밀번호가 올바르지 않습니다.');
