@@ -64,14 +64,7 @@ export class Widget {
       this.showLogin();
     });
 
-    // 인증 체크
-    if (!this.state.isAuthenticated()) {
-      // 로그인되지 않은 경우 로그인 페이지 표시
-      this.showLogin();
-      return;
-    }
-
-    // 페이지 프리로딩 훅 설정
+    // 페이지 프리로딩 훅 설정 (항상 설정, 내부에서 인증 체크)
     this.router.setBeforeNavigate(async (path, params) => {
       // 인증 체크
       if (!this.state.isAuthenticated()) {
@@ -81,7 +74,14 @@ export class Widget {
       await this.preloadPage(path, params);
     });
 
-    // 라우터 초기화 (현재 URL에 맞는 뷰 렌더링)
+    // 인증 체크
+    if (!this.state.isAuthenticated()) {
+      // 로그인되지 않은 경우 로그인 페이지 표시 (라우터 초기화 없이)
+      this.showLogin();
+      return;
+    }
+
+    // 인증된 경우에만 라우터 초기화
     this.router.init();
   }
 
@@ -124,17 +124,25 @@ export class Widget {
 
     const loginPage = new LoginPage({
       state: this.state,
-      onLoginSuccess: (user) => {
-        // 로그인 성공 시 사용자 정보 저장
-        this.state.setUser(user);
+      onLoginSuccess: (loginResponse) => {
+        // 로그인 성공 시 사용자 정보 및 토큰 저장
+        this.state.setState({
+          user: loginResponse.user,
+          token: loginResponse.token
+        });
         
-        // 상태 저장
+        // 상태 저장 (토큰 포함)
         if (this.config.persistState !== false) {
           this.state.saveToStorage();
         }
 
-        // 투자 목록 페이지로 이동
-        this.router.navigate('/');
+        // 라우터 초기화 (로그인 후 처음 한 번만)
+        if (!this.router.currentRoute) {
+          this.router.init();
+        } else {
+          // 이미 초기화된 경우 투자 목록으로 이동
+          this.router.navigate('/');
+        }
       }
     });
 

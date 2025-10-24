@@ -3,13 +3,14 @@
 const API_BASE_URL = 'https://abcbond-api.sixman-joseph.workers.dev';
 
 /**
- * Get auth token from localStorage
+ * Get auth token from localStorage or state
  */
 function getAuthToken() {
   try {
-    const state = localStorage.getItem('widget-state');
-    if (state) {
-      const parsedState = JSON.parse(state);
+    // localStorage에서 토큰 가져오기
+    const stateStr = localStorage.getItem('widget-state');
+    if (stateStr) {
+      const parsedState = JSON.parse(stateStr);
       return parsedState.token || null;
     }
   } catch (error) {
