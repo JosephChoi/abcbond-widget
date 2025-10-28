@@ -15,7 +15,32 @@ export class InvestmentPage {
 
   async loadInvestment() {
     try {
-      this.investment = await getInvestmentDetail(this.investmentId);
+      const data = await getInvestmentDetail(this.investmentId);
+      
+      // API 응답을 UI에 맞게 변환
+      this.investment = {
+        id: data.id,
+        name: data.name,
+        location: data.location,
+        address: data.address || data.location,
+        description: data.description || '',
+        totalAmount: data.total_amount || 0,
+        investedAmount: data.total_amount || 0, // 상세페이지에서는 총 모집금액 표시
+        expectedReturn: data.expected_return || 0,
+        propertyValue: data.property_value || 0,
+        kbValuation: data.kb_valuation || 0,
+        seniorLoan: data.senior_loan || 0,
+        ltv: data.ltv || 0,
+        startDate: data.start_date,
+        endDate: data.end_date,
+        status: data.status,
+        type: data.type,
+        images: data.images || [data.image || 'https://via.placeholder.com/400x300?text=No+Image'],
+        monthlyInterest: data.monthlyInterest || [],
+        details: data.details || {},
+        registrationDocument: data.registrationDocument || null
+      };
+      
       return this.investment;
     } catch (error) {
       console.error('Failed to load investment:', error);
@@ -105,7 +130,7 @@ export class InvestmentPage {
 
     const cards = [
       { 
-        label: '내 투자금', 
+        label: '총 모집 금액', 
         value: `${this.investment.investedAmount.toLocaleString('ko-KR')}원`,
         className: 'investment-amount'
       },
