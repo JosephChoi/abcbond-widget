@@ -27,16 +27,10 @@ function getAuthToken() {
  */
 export async function fetchAPI(endpoint, options = {}) {
   try {
-    const token = getAuthToken();
     const headers = {
       'Content-Type': 'application/json',
       ...options.headers,
     };
-
-    // 토큰이 있으면 Authorization 헤더 추가
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
-    }
 
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       ...options,
@@ -57,15 +51,15 @@ export async function fetchAPI(endpoint, options = {}) {
 }
 
 /**
- * Get my investment list (내 투자 내역)
+ * Get all investments (전체 투자 상품)
  * @returns {Promise<Array>} Investment list
  */
-export async function getMyInvestments() {
+export async function getAllInvestments() {
   try {
-    const response = await fetchAPI('/user-investments/my');
+    const response = await fetchAPI('/investments');
     return response.success ? response.data : [];
   } catch (error) {
-    console.error('Failed to fetch my investments:', error);
+    console.error('Failed to fetch investments:', error);
     throw error;
   }
 }

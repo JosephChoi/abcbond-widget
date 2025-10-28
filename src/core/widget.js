@@ -1,7 +1,6 @@
 // 위젯 초기화 및 라이프사이클 관리
 
 import { createElement } from '../utils/dom.js';
-import { LoginPage } from '../pages/login.js';
 import { IndexPage } from '../pages/index.js';
 import { InvestmentPage } from '../pages/investment.js';
 import { Router } from './router.js';
@@ -47,41 +46,12 @@ export class Widget {
       return;
     }
 
-    // LocalStorage에서 상태 복원 (선택적)
-    if (this.config.persistState !== false) {
-      this.state.loadFromStorage();
-    }
-
-    // 사용자 정보 변경 시 자동 저장
-    if (this.config.persistState !== false) {
-      this.state.subscribe('user', () => {
-        this.state.saveToStorage();
-      });
-    }
-
-    // 로그아웃 시 로그인 페이지로 이동
-    this.state.subscribe('auth:logout', () => {
-      this.showLogin();
-    });
-
-    // 페이지 프리로딩 훅 설정 (항상 설정, 내부에서 인증 체크)
+    // 페이지 프리로딩 훅 설정
     this.router.setBeforeNavigate(async (path, params) => {
-      // 인증 체크
-      if (!this.state.isAuthenticated()) {
-        this.showLogin();
-        return;
-      }
       await this.preloadPage(path, params);
     });
 
-    // 인증 체크
-    if (!this.state.isAuthenticated()) {
-      // 로그인되지 않은 경우 로그인 페이지 표시 (라우터 초기화 없이)
-      this.showLogin();
-      return;
-    }
-
-    // 인증된 경우에만 라우터 초기화
+    // 라우터 초기화 (인증 없이 바로 시작)
     this.router.init();
   }
 
@@ -111,43 +81,6 @@ export class Widget {
       return document.querySelector(this.container);
     }
     return this.container;
-  }
-
-  /**
-   * 로그인 페이지 보기
-   */
-  showLogin() {
-    const containerElement = this.getContainer();
-    if (!containerElement) return;
-
-    this.state.setCurrentView('login');
-
-    const loginPage = new LoginPage({
-      state: this.state,
-      onLoginSuccess: (loginResponse) => {
-        // 로그인 성공 시 사용자 정보 및 토큰 저장
-        this.state.setState({
-          user: loginResponse.user,
-          token: loginResponse.token
-        });
-        
-        // 상태 저장 (토큰 포함)
-        if (this.config.persistState !== false) {
-          this.state.saveToStorage();
-        }
-
-        // 라우터 초기화 (로그인 후 처음 한 번만)
-        if (!this.router.currentRoute) {
-          this.router.init();
-        } else {
-          // 이미 초기화된 경우 투자 목록으로 이동
-          this.router.navigate('/');
-        }
-      }
-    });
-
-    const loginElement = loginPage.render();
-    this.transitionToPage(containerElement, loginElement);
   }
 
   /**

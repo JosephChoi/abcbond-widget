@@ -4,7 +4,6 @@ import { styles } from './styles/main.css.js';
 import { Widget } from './core/widget.js';
 import { Router } from './core/router.js';
 import { State, getState } from './core/state.js';
-import { LoginPage } from './pages/login.js';
 import { IndexPage } from './pages/index.js';
 import { InvestmentPage } from './pages/investment.js';
 import { Modal } from './components/Modal.js';
@@ -35,7 +34,6 @@ if (typeof window !== 'undefined') {
     State,
     getState,
     components: {
-      LoginPage,
       IndexPage,
       InvestmentPage,
       Modal
@@ -54,7 +52,6 @@ export {
   Router,
   State,
   getState,
-  LoginPage,
   IndexPage,
   InvestmentPage,
   Modal
